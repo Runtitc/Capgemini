@@ -14,10 +14,10 @@
 	
 	if (!empty($_POST)){
 		$NameError = $SurnameError = $Teleph_NumbError = $AddressError = "";
-        $Name = htmlentities($_POST['Name'],ENT_QUOTES,"UTF-8"); // ENT_QUOTES tell to change " to entities
-		$Surname =  htmlentities($_POST['Surname'],ENT_QUOTES,"UTF-8");
-		$Teleph_Numb =  htmlentities($_POST['Teleph_Numb'],ENT_QUOTES,"UTF-8");
-		$Address =  htmlentities($_POST['Address'],ENT_QUOTES,"UTF-8");
+        $Name = $_POST['Name']; // ENT_QUOTES tell to change " to entities
+		$Surname =  $_POST['Surname'];
+		$Teleph_Numb =  $_POST['Teleph_Numb'];
+		$Address =  $_POST['Address'];
 		$id = $_SESSION['id'];
 		
 		// If some of the field will be empty, then the query INPUT shouldn't be executed. To do this I initiate the variable $is_valid and set it to "true" at the beginning
