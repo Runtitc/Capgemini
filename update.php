@@ -14,7 +14,7 @@
 	
 	if (!empty($_POST)){
 		$NameError = $SurnameError = $Teleph_NumbError = $AddressError = "";
-        $Name = $_POST['Name']; // ENT_QUOTES tell to change " to entities
+        $Name = $_POST['Name'];
 		$Surname =  $_POST['Surname'];
 		$Teleph_Numb =  $_POST['Teleph_Numb'];
 		$Address =  $_POST['Address'];
