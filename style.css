@@ -1,0 +1,47 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 11px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active,.activeM) {
+    background-color: #ddd;
+	color: white;
+}
+
+
+li a.activeM {
+	cursor:pointer;
+    color: white;
+    background-color: #4CAF50;
+	text-decoration: none;
+}
+li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+p{
+	color:green;
+}
+
+th, td {
+    padding: 5px;
+}
+th {
+    text-align: center;
+}
