@@ -1,6 +1,11 @@
 <?php 
 	// I do the Submit form in the same file, at least I wont need to craete some session variables with 'errors'
 	require_once 'Database.php'; // if there is a problem with connection, the rest of a site will not display. I do not need to include Database.php more than once
+	// I define it to use it afterwards as "placeholder"
+	$Name="";
+	$Surname="";
+	$Teleph_Numb="";
+	$Address="";
 	// Firstly, I check whether there is some POST variable - I mean, if the user clicked Submit button
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		// Now, I create empty error variables that at the beginning will hold empty values
@@ -8,10 +13,10 @@
 		//Now, I am scanning the POST variables inputed by the user and I am getting rid of unnecessary characters like new line, unnecessary spaces etc.
 		//To do this I declare the function to truncate all those unnecessary stuffs:
 		
-		$Name = htmlentities($_POST['Name'],ENT_QUOTES,"UTF-8"); // ENT_QUOTES tell to change " to entities
-		$Surname =  htmlentities($_POST['Surname'],ENT_QUOTES,"UTF-8");
-		$Teleph_Numb =  htmlentities($_POST['Teleph_Numb'],ENT_QUOTES,"UTF-8");
-		$Address =  htmlentities($_POST['Address'],ENT_QUOTES,"UTF-8");
+		$Name =$_POST['Name']; 
+		$Surname =  $_POST['Surname'];
+		$Teleph_Numb =  $_POST['Teleph_Numb'];
+		$Address =  $_POST['Address'];
 		
 		// If some of the field will be empty, then the query INPUT shouldn't be executed. To do this I initiate the variable $is_valid and set it to "true" at the beginning
 		$is_valid = true;
@@ -40,8 +45,8 @@
 		{
 			$conn = Database::Connect();
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-			// I can do a query on a few ways, as a prepared statement (first "prepare" and next "execute" or i can use direct query() method. I think the first method is more professional for that example
-			$sql_ins_q = "INSERT INTO person (Name, Surname, Telephone_Number, Address) VALUES ('$Name', '$Surname', '$Teleph_Numb', '$Address')";
+			// I can do a query on a few ways, as a prepared statement (first "prepare" and next "execute" or i can use direct query() method. I think the first method is more professional for that example cause it prevents SQL injection
+			$sql_ins_q = "INSERT INTO person (Name, Surname, Telephone_Number, Address) VALUES (?, ?, ?, ?)";
 			$q = $conn->prepare($sql_ins_q);
 			$q->execute(array($Name, $Surname, $Teleph_Numb, $Address));
 			Database::disconnect();
@@ -70,25 +75,25 @@
 <div align="center">
 	<h3> Create a new Person: </h3>
 	<form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method="post"> 
-		Name: <br /> <input type="text" name="Name" maxlength="100"/> <br />
+		Name: <br /> <input type="text" name="Name" maxlength="100" value ="<?php echo $Name; ?>" /> <br />
 		<?php 
 			if (!empty($NameError)){
 				echo $NameError;
 			}
 		?>
-		Surname: <br /> <input type="text" name="Surname" maxlength="100"/> <br />
+		Surname: <br /> <input type="text" name="Surname" maxlength="100" value ="<?php echo $Surname; ?>"/> <br />
 		<?php 
 			if (!empty($SurnameError)){
 				echo $SurnameError;
 			}
 		?>
-		Telephone Number: <br /> <input type="number" name="Teleph_Numb" maxlength="9"/> <br />
+		Telephone Number: <br /> <input type="number" name="Teleph_Numb" maxlength="9" value ="<?php echo $Teleph_Numb; ?>"/> <br />
 		<?php 
 			if (!empty($Teleph_NumbError)){
 				echo $Teleph_NumbError;
 			}
 		?>
-		Address: <br /> <input type="text" name="Address" /> <br />
+		Address: <br /> <input type="text" name="Address" value ="<?php echo $Address; ?>"/> <br />
 		<?php 
 			if (!empty($AddressError)){
 				echo $AddressError;
